@@ -33,15 +33,6 @@ resource "google_compute_firewall" "web" {
   }
 }
 
-resource "google_compute_firewall" "https" {
-  name    = "https"
-  network = "${google_compute_network.cr460labsession.name}"
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-}
-
 resource "google_compute_firewall" "ssh" {
   name    = "ssh"
   network = "${google_compute_network.cr460labsession.name}"
