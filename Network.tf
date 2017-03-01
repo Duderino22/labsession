@@ -42,3 +42,12 @@ resource "google_compute_firewall" "ssh" {
   }
 
 }
+resource "google_compute_firewall" "https" {
+    name     = "https"
+    network  ="${google_compute_network.cr460labsession.name}"
+    allow {
+      protocol = "tcp"
+      ports    = ["443"]
+}
+
+}
