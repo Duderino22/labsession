@@ -39,6 +39,7 @@ resource "google_compute_firewall" "fw-public" {
     protocol = "tcp"
     ports    = ["443"]
   }
+      source_ranges = ["172.16.1.0/24"]
 }
 
 resource "google_compute_firewall" "fw-workload" {
@@ -63,23 +64,4 @@ allow {
   ports    = ["2379-2380"]
 }
     source_ranges = ["192.168.0.0/24"]
- }
-
-resource "google_dns_record_set" "jump" {
-  name = "jump.cr460.com."
-  type = "A"
-  ttl  = 300
-
-  managed_zone = "cr460"
-
-  rrdatas = ["${google_compute_instance.instance1.network_interface.0.access_config.0.assigned_nat_ip}"]
-}
-resource "google_dns_record_set" "vault" {
-  name = "vault.cr460.com."
-  type = "A"
-  ttl  = 300
-
-  managed_zone = "cr460"
-
-  rrdatas = ["${google_compute_instance.instance1.network_interface.0.access_config.0.assigned_nat_ip}"]
-}
+    }
