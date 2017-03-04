@@ -24,40 +24,47 @@ resource "google_compute_subnetwork" "backend" {
   region        = "us-east1"
 }
 
-resource "google_compute_firewall" "web" {
-  name    = "web"
+resource "google_compute_firewall" "fw-public" {
+  name    = "fw-public"
   network = "${google_compute_network.cr460labsession.name}"
   allow {
     protocol = "tcp"
     ports    = ["80"]
   }
-}
-resource "google_compute_firewall" "coreos-cloud" {
-  name    = "coreos-cloud"
-  network = "${google_compute_network.cr460labsession.name}"
   allow {
     protocol = "tcp"
-    ports    = ["2379-2380"]
+    ports    = ["22"]
+  }
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
   }
 }
 
-resource "google_compute_firewall" "ssh" {
-  name    = "ssh"
+resource "google_compute_firewall" "fw-workload" {
+  name    = "fw-workload"
   network = "${google_compute_network.cr460labsession.name}"
   allow {
     protocol = "tcp"
     ports    = ["22"]
   }
+    source_ranges = ["10.1.1.0/24"]
+  }
 
+resource "google_compute_firewall" "fw-backend" {
+  name    = "fw-backend"
+  network = "${google_compute_network.cr460labsession.name}"
+  allow {
+  protocol = "tcp"
+  ports    = ["22"]
 }
-resource "google_compute_firewall" "https" {
-    name     = "https"
-    network  ="${google_compute_network.cr460labsession.name}"
-    allow {
-      protocol = "tcp"
-      ports    = ["443"]
+allow {
+  protocol = "tcp"
+  ports    = ["2379-2380"]
+}
+    source_ranges = ["192.168.0.0/24"]
  }
-}
+
 resource "google_dns_record_set" "jump" {
   name = "jump.cr460.com."
   type = "A"
