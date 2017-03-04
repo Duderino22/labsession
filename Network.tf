@@ -48,6 +48,5 @@ resource "google_compute_firewall" "https" {
     allow {
       protocol = "tcp"
       ports    = ["443"]
-}
-
+ }
 }

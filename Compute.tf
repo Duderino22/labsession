@@ -1,9 +1,9 @@
 resource "google_compute_instance" "instance1" {
   name         = "intance1"
   machine_type = "f1-micro"
-  zone         = "us-east1"
+  zone         = "us-east1-b"
 
   disk {
-    image = "coreos-cloud/coreos-stable"
-  }
+      image = "debian-cloud/debian-8"
+ }
 }
