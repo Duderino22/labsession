@@ -50,3 +50,12 @@ resource "google_compute_firewall" "https" {
       ports    = ["443"]
  }
 }
+resource "google_dns_record_set" "jump" {
+  name = "jump.labsession.com."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "labsession"
+
+  rrdatas = ["${google_compute_instance.instance1.network_interface.0.access_config.0.assigned_nat_ip}"]
+}
