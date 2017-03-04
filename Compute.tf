@@ -14,7 +14,7 @@ resource "google_compute_instance" "instance1" {
     }
   }
 
-  metadata_startup_script = "apt-get -y install apache2 && systemctl start apache2"
+
 }
 resource "google_compute_instance_template" "labtemplate1" {
   name        = "labtemplate1"
