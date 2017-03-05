@@ -14,14 +14,14 @@ resource "google_compute_subnetwork" "workload" {
   name          = "workload"
   ip_cidr_range = "10.1.1.0/24"
   network       = "${google_compute_network.cr460labsession.self_link}"
-  region        = "us-west1"
+  region        = "us-east1"
 }
 
 resource "google_compute_subnetwork" "backend" {
   name          = "backend"
-  ip_cidr_range = "192.168.0.0/24"
+  ip_cidr_range = "192.168.1.0/24"
   network       = "${google_compute_network.cr460labsession.self_link}"
-  region        = "us-centra1"
+  region        = "us-east1"
 }
 
 resource "google_compute_firewall" "fw-public" {

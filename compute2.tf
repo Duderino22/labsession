@@ -34,13 +34,13 @@ resource "google_compute_instance_group_manager" "grp-workers" {
 
   base_instance_name = "grp-workers"
   instance_template  = "${google_compute_instance_template.template-workers.self_link}"
-  zone               = "us-east1-b"
+  zone               = "us-east1-c"
 
 }
 
 resource "google_compute_autoscaler" "grp-workers-autoscaler" {
   name   = "grp-workers-autoscaler"
-  zone   = "us-east1-b"
+  zone   = "us-east1-c"
   target = "${google_compute_instance_group_manager.grp-workers.self_link}"
 
   autoscaling_policy = {
