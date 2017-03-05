@@ -39,7 +39,7 @@ resource "google_compute_firewall" "fw-public" {
     protocol = "tcp"
     ports    = ["443"]
   }
-      source_ranges = ["172.16.1.0/24"]
+      source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "fw-workload" {
