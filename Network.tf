@@ -14,14 +14,14 @@ resource "google_compute_subnetwork" "workload" {
   name          = "workload"
   ip_cidr_range = "10.1.1.0/24"
   network       = "${google_compute_network.cr460labsession.self_link}"
-  region        = "us-west1"
+  region        = "us-east1"
 }
 
 resource "google_compute_subnetwork" "backend" {
   name          = "backend"
-  ip_cidr_range = "192.168.0.0/24"
+  ip_cidr_range = "192.168.1.0/24"
   network       = "${google_compute_network.cr460labsession.self_link}"
-  region        = "us-centra1"
+  region        = "us-east1"
 }
 
 resource "google_compute_firewall" "fw-public" {
@@ -39,7 +39,7 @@ resource "google_compute_firewall" "fw-public" {
     protocol = "tcp"
     ports    = ["443"]
   }
-      source_ranges = ["172.16.1.0/24"]
+      source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "fw-workload" {
@@ -67,21 +67,21 @@ allow {
     }
 
  resource "google_dns_record_set" "jump" {
-      name = "jump.cr460.com."
+      name = "jump.duderino22.cr460lab.com."
       type = "A"
       ttl  = 300
 
-      managed_zone = "cr460"
+      managed_zone = "duderino22"
 
       rrdatas = ["${google_compute_instance.jumphost.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
 
     resource "google_dns_record_set" "vault" {
-      name = "vault.cr460.com."
+      name = "vault.duderino22.cr460lab.com."
       type = "A"
       ttl  = 300
 
-      managed_zone = "cr460"
+      managed_zone = "duderino22"
 
       rrdatas = ["${google_compute_instance.vault.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
