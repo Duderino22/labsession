@@ -71,6 +71,7 @@ allow {
       type = "A"
       ttl  = 300
 
+      managed_zone = "duderino22"
 
       rrdatas = ["${google_compute_instance.jumphost.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
@@ -80,6 +81,7 @@ allow {
       type = "A"
       ttl  = 300
 
+      managed_zone = "duderino22"
 
       rrdatas = ["${google_compute_instance.vault.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
