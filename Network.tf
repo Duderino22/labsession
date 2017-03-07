@@ -67,21 +67,19 @@ allow {
     }
 
  resource "google_dns_record_set" "jump" {
-      name = "jump.cr460.com."
+      name = "jump.duderino22.cr460lab.com."
       type = "A"
       ttl  = 300
 
-      managed_zone = "cr460"
 
       rrdatas = ["${google_compute_instance.jumphost.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
 
     resource "google_dns_record_set" "vault" {
-      name = "vault.cr460.com."
+      name = "vault.duderino22.cr460lab.com."
       type = "A"
       ttl  = 300
 
-      managed_zone = "cr460"
 
       rrdatas = ["${google_compute_instance.vault.network_interface.0.access_config.0.assigned_nat_ip}"]
     }
